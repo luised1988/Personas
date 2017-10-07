@@ -1,5 +1,6 @@
 package com.example.android.personas;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,12 +10,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class CrearPersonas extends AppCompatActivity {
 
     private EditText cajacedula,cajanombre,cajaapellido;
     private Resources res;
     private Spinner cajasexo;
     private String [] sexo;
+    private ArrayList<Integer> fotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,11 @@ public class CrearPersonas extends AppCompatActivity {
         cajaapellido = (EditText)findViewById(R.id.txtApellido);
         cajasexo = (Spinner)findViewById(R.id.cmbSexo);
         res = this.getResources();
+
+        fotos = new ArrayList<>();
+        fotos.add(R.drawable.images);
+        fotos.add(R.drawable.images2);
+        fotos.add(R.drawable.images3);
 
         sexo = res.getStringArray(R.array.sexo);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,sexo);
@@ -39,7 +48,7 @@ public class CrearPersonas extends AppCompatActivity {
         apellido = cajaapellido.getText().toString();
         sex = cajasexo.getSelectedItemPosition();
 
-        Persona p= new Persona(cedula,nombre,apellido,sex);
+        Persona p= new Persona(Metodos.fotoAleatoria(fotos),cedula,nombre,apellido,sex);
         p.guardar();
 
 
